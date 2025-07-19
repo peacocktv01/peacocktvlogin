@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Peacock TV Login Magic</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: #fefefe;
+    color: #222;
+  }
+
+  /* Header */
+  header {
+    background: #004170;
+    padding: 12px 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  nav {
+    display: flex;
+    gap: 15px;
+  }
+
+  nav button {
+    background: #0171c2;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(1,113,194,0.7);
+    transition: background-color 0.3s ease;
+  }
+
+  nav button:hover {
+    background: #005b9e;
+    box-shadow: 0 3px 8px rgba(0,91,158,0.9);
+  }
+
+  /* Login form */
+  .login-form {
+    background: #e8f0fe;
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(1, 113, 194, 0.25);
+  }
+
+  .login-form h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #004170;
+  }
+
+  .login-form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+    color: #004170;
+  }
+
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #0171c2;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  .login-form button {
+    margin-top: 20px;
+    width: 100%;
+    background: #0171c2;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(1, 113, 194, 0.7);
+    transition: background-color 0.3s ease;
+  }
+
+  .login-form button:hover {
+    background: #005b9e;
+    box-shadow: 0 5px 12px rgba(0, 91, 158, 0.9);
+  }
+
+  /* Hero section */
+  .hero {
+    background: linear-gradient(135deg, #0171c2, #4aa8ff);
+    color: white;
+    padding: 60px 20px 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(1, 113, 194, 0.5);
+    border-radius: 12px;
+    margin: 30px auto 50px;
+    max-width: 1300px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    animation: slideInFromLeft 1.2s ease forwards;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeInUp 2s ease forwards;
+    opacity: 0;
+  }
+
+  /* Animation for hero text */
+  @keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  }
+
+  /* Marquee text */
+  .marquee-container {
+    margin-top: 35px;
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
+  }
+
+  .marquee {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: marqueeAnim 15s linear infinite;
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+
+  @keyframes marqueeAnim {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Main container for content */
+  .container {
+    max-width: 900px;
+    background: #ffffff;
+    margin: 0 auto 60px;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    color: #222;
+  }
+
+  .container h2 {
+    font-size: 2rem;
+    margin-bottom: 18px;
+    color: #004170;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(1,113,194,0.4);
+  }
+
+  .container p {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .container p strong {
+    color: #0171c2;
+  }
+
+  /* Responsive */
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    nav {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      flex: 1 1 45%;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+
+    .login-form {
+      width: 90%;
+      margin: 15px auto;
+      padding: 15px 20px;
+    }
+
+    .container {
+      width: 90%;
+      padding: 20px 18px;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 601px) and (max-width: 900px) {
+    header {
+      padding: 14px 25px;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+    .login-form {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 18px 22px;
+    }
+    .container {
+      max-width: 700px;
+      padding: 28px 25px;
+    }
+    nav button {
+      padding: 9px 18px;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 901px) {
+    .login-form {
+      max-width: 450px;
+    }
+
+    nav button {
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Peacock TV</div>
+  <nav>
+    <button type="button" onclick="scrollToSection('hero')">Home</button>
+    <button type="button" onclick="scrollToSection('login-form')">Login</button>
+    <button type="button" onclick="scrollToSection('support')">Support</button>
+    <button type="button" onclick="scrollToSection('activate')">Activate</button>
+  </nav>
+</header>
+
+<section class="login-form" id="login-form" aria-label="Login form">
+  <h2>Login to Your Account</h2>
+  <form>
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter password" required />
+    <button type="submit">Login</button>
+  </form>
+</section>
+
+<section class="hero" id="hero" aria-label="Hero section">
+  <h1>Unlocking the Magic of Your Peacock TV Login Account</h1>
+  <p>When you dive into the world of streaming, having a Peacock TV login account opens the door to an incredibly wide range of entertainment. From classic TV series and blockbuster movies to live sports and original programming, your Peacock TV account login is your key to everything Peacock offers.</p>
+  <div class="marquee-container" aria-label="Scrolling marquee text">
+    <div class="marquee" role="marquee" aria-live="polite">
+      Stream classic series • Blockbuster movies • Live sports • Original programming • Personalized recommendations • Seamless multi-device access •
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <h2>Why a Peacock TV Login Account Matters</h2>
+  <p>Creating and maintaining your <strong>Peacock TV login account</strong> is essential for accessing personalized features. When you sign in with your credentials, you unlock a tailored experience—profile recommendations, resume-watching, watchlists, parental control settings, and more.</p>
+  <p>With the <strong>Peacock TV account login</strong>, the service remembers where you left off, and presents content suited specifically to your tastes.</p>
+  <p>Whether you’re using Peacock on your smart TV, laptop, smartphone, tablet, or streaming device, the Peacock TV login account enables effortless access across all devices. Once logged in, you can bounce from device to device, and the streaming platform keeps your viewing journey seamless.</p>
+</main>
+
+<section id="support" class="container" aria-label="Support section" style="margin-bottom: 60px;">
+  <h2>Support</h2>
+  <p>Need help? Our support team is here to assist you with your Peacock TV login and account issues. Contact us anytime.</p>
+</section>
+
+<section id="activate" class="container" aria-label="Activate section" style="margin-bottom: 60px;">
+  <h2>Activate Your Account</h2>
+  <p>Ready to get started? Activate your Peacock TV account today to unlock endless entertainment options across your devices.</p>
+</section>
+
+<script>
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>
